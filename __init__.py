@@ -46,6 +46,18 @@ def register_page():
         return("Connected")
     except Exception as e:
         return(str(e))
+    
+@app.route('/welcome/')
+@login_required
+def templating():
+    try:
+        output = ["DIGIT 400 is coolio", "Python, Java, PHP, SQL, C++", "<p><string>HELLO WORLD</string></p>", 42, "42"]
+        return render_template("templating.html", output = output)
+        
+    except Exception as e:
+        return(str(e)) # remove for prductions
+    
+    
 
     
 @app.route("/login/", methods=["GET","POST"])
