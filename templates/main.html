@@ -9,18 +9,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     
     <!-- Local Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
       
     <!-- Custom Style -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename='image/favicon.ico') }}">
+    <!-- Fav Icon -->
+    
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
       
     <!-- Material Design Icon Import -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <title>DIGIT 400</title>
+    <title>Crock of Sports</title>
     
     <!-- Modal Initialization -->
     <script>
@@ -44,7 +45,7 @@
   <!-- Nav Bar --> 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
           
-  <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='images/mainlogo.png') }}" width="60" height="60" alt="site logo"> BrandName</a>
+  <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='images/crock pot.jpg') }}" width="60" height="60" alt="site logo"> Crock of Sports</a>
           
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -55,44 +56,130 @@
         <a class="nav-link" href="#"><i class="material-icons">home</i> Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" data-toggle="modal" data-target="#featuresModal" href="#"><i class="material-icons">web</i> Stats</a>
       </li>
+      {% if session.logged_in %}
       <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#"><i class="material-icons">face</i> Login</a>
+        <a class="nav-link" href="/login/"><i class="material-icons">face</i> Switch Users</a>
       </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#"><i class="material-icons">face</i> About</a>
+      </li>
+      {% endif %}
+      {% if session.logged_in %}
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">explore</i>
+          Explore
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="/dashboard/">Dashboard</a>
           <a class="dropdown-item" href="/logout/">Logout</a>
-          <a class="dropdown-item" href="/about/">About</a>
+        </div>
+      </li>
+      {% endif %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sports
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/basketball/">Basketball</a>
+          <a class="dropdown-item" href="/baseball/">Baseball</a>
+          <a class="dropdown-item" href="/football/">Football</a>
+          <a class="dropdown-item" href="/hockey/">Hockey</a>
         </div>
       </li>
     </ul>
   </div>
 </nav><!-- END Nav -->
+      
+      <div class="container-fluid">
+     
+     {% with messages = get_flashed_messages() %}
+     
+        {% if messages %}
+     
+            {% for message in messages %}
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+              </div>  
+     
+            {% endfor %}
+     
+        {% endif %}
+     
+     {% endwith %}
+      
+ </div>     
+      
+      {% for game in matches %}
+        <p>{{game}}</p>
+      {% endfor %}
+      
 <!-- Main Body -->
-<video loop muted autoplay="autoplay" poster="{{ url_for('static',filename='images/space_cats.png') }}" width="100%" height="100%">
-    <source src="{{ url_for('static',filename='images/space_cats.mp4') }}" type="video/mp4">
-</video>
       
 
+      
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{{ url_for('static',filename='images/basketball.jpg') }}" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{ url_for('static',filename='images/baseball.jpg') }}" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{ url_for('static',filename='images/hockey.jpg') }}" alt="Third slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{ url_for('static',filename='images/football.jpg') }}" alt="Fourth slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
   
 
-<!-- Modal -->
+<!-- Login Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Please login or register a new account!</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        This will be our login!
+        <br>
+        <h4>Login</h4>
+        <br>
+        <form action="#" method="post">
+            <input type="text" class="form-control" placeholder="User Name" name="username" value="{{request.form.username}}">
+            &nbsp;
+            <input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password}}">
+            <br>
+            <input type="submit" class="btn btn-default" value="Login">
+        </form>
+        <br>
+        <code>{{error}}</code>
+        <hr>
+        <h5>Register a new account!</h5>
+        <p>Click here to be redirected to our <a href="/register/">registration page</a>!</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -100,6 +187,62 @@
     </div>
   </div>
 </div>
+
+<!-- Features Modal -->
+<div class="modal fade" id="featuresModal" tabindex="-1" role="dialog" aria-labelledby="featuresModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="featuresModalLabel">Features</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <br>
+        <h4>Features</h4>
+        <p>... our features go here!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Footer-->
+<footer class="pt-4 my-md-5 pt-md-5 border-top" style="margin-left:2%;margin-right:2%;">
+  <div class="row">
+    <div class="col-12 col-md">
+      <img class="mb-2" src="{{ url_for('static', filename='images/crock pot.jpg') }}" alt="footer logo" width="60" height="60"><p>This is a project developed for the students of Penn State Behrend in DIGIT 400.</p> <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+    </div>
+    <div class="col-6 col-md">
+      <h5>Features</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="#"></a>Team Info</li>
+        <li><a class="text-muted" href="#">Scores</a></li>
+        <li><a class="text-muted" href="#"></a></li>
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>Dashboard</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="/dashboard/">Dashboard</a></li>
+        <li><a class="text-muted" href="/login/">Login</a></li>
+        <li><a class="text-muted" href="/logout/">Logout</a></li>
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>About</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="#">Contact</a></li>
+        <li><a class="text-muted" href="#">Privacy</a></li>
+        <li><a class="text-muted" href="#">Purpose</a></li>
+      </ul>
+    </div>
+  </div>
+</footer><!--END Footer-->
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

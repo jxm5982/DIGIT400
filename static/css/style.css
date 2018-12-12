@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Chakra+Petch|Source+Sans+Pro');
+
+html {
+    min-height: 125%;
+}
+
+.navbar-brand {
+    font-family: 'Source Sans Pro', sans-serif;
+    
+    
+}
